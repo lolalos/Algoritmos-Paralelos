@@ -38,3 +38,15 @@ E = S<sub>p</sub> / p
 
 #### 3.1. MULTIPLICACION DE MATRICES.
 Paralelismo de datos donde cada hilo trabaja con datos distintos, pero con el mismo algoritmo.
+
+## Result Matrix C:
+54 55 54 55 61 58 42 50 52 48 
+40 58 40 56 47 51 45 42 50 42 
+51 64 58 56 56 65 43 60 63 55 
+60 66 60 61 56 77 45 65 69 60 
+68 73 67 70 68 75 47 64 73 65 
+68 77 70 71 72 76 49 69 75 65 
+70 76 60 68 53 70 53 69 71 60 
+73 77 66 79 66 82 60 71 75 66 
+60 71 64 72 67 81 59 70 71 63 
+66 68 61 59 52 70 49 70 64 59 
