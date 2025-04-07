@@ -1,33 +1,81 @@
 #include <stdio.h>
-#include <iostream>
-#include <iomanip>
+#include <math.h>
+
+#include <stdlib.h>
+#include <time.h>
 #include <omp.h>
-using namespace std;
-double prodpunto(double *a, double *b, int n)
+//--Define el número de nodos en el grafo
+#define N 3000
+//--Función mín para calcular valores mínimos entre dos números
+#ifndef min
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+#endif
+//--Define una matriz de tamaño N * N para almacenar las distancias entre los nodos
+//--Inicializa las distancias en cero
+int distance_matrix[N][N] = { 0 };
+int main(int argc, char* argv[])
 {
-double res = 0;
-int i;
-#pragma omp parallel for reduction(+:res)
-for (i = 0; i < n; i++)
+int nthreads;
+int src, dst, middle;
+//--Inicializa el grafo con distancias aleatorias
+for (src = 0; src < N; src++)
 {
-res += a[i] * b[i];
+for (dst = 0; dst < N; dst++)
+{
+//--La distancia de un nodo al mismo nodo es 0
+if (src != dst) {
+//--Las distancias son generadas entre 0 y 19
+distance_matrix[src][dst] = rand() % 20;
 }
-return res;
 }
-int main()
+}
+//=======ALGORITMO SECUENCIAL=========
+//--Obtiene el tiempo inicial
+double start_time = omp_get_wtime();
+for (middle = 0; middle < N; middle++)
 {
-int n=100;
-double *a = new double[n];
-double *b = new double[n];
-//--colocacion de datos al arreglo a
-for (int i = 0; i < n; i++)
-a[i] = i;
-//--colocaciòn de datos al arreglo b
-for (int j = 0; j < n; j++)
-b[j] = j * 10;
-//--calcular producto punto en paralelo
-double pp = prodpunto(a, b, n);
-cout <<"elproducto punto es: "<<fixed<<setprecision(2)<< pp << endl;
-getchar();
-return(0);
+int* dm = distance_matrix[middle];
+for (src = 0; src < N; src++)
+{
+int* ds = distance_matrix[src];
+for (dst = 0; dst < N; dst++)
+{
+ds[dst] = min(ds[dst], ds[middle] + dm[dst]);
+}
+}
+}
+//--obtiene el tiempo final
+double time = omp_get_wtime() - start_time;
+printf("Tiempo Total secuencial (en seg):%.2f\n", time);
+//=========ALGORITMO PARALELO==============
+for (nthreads = 1; nthreads <= 10; nthreads++) {
+//--Define diferente número de hilos
+omp_set_num_threads(nthreads);
+//--Define el iterador para iterar sobre la matriz de distancias
+//--Obtiene el tiempo inicial
+double start_time = omp_get_wtime();
+/*Tomando un nodo como mediador
+comprobar si la distancia indirecta entre la fuente y la distancia
+a través del mediador es menor que la distancia directa entre ellos */
+#pragma omp parallel shared(distance_matrix)
+for (middle = 0; middle < N; middle++)
+{
+int* dm = distance_matrix[middle];
+#pragma omp parallel for private(src, dst) schedule(dynamic)
+
+for (src = 0; src < N; src++)
+{
+int* ds = distance_matrix[src];
+for (dst = 0; dst < N; dst++)
+{
+ds[dst] = min(ds[dst], ds[middle] + dm[dst]);
+}
+}
+}
+//--obtiene el tiempo final
+double time = omp_get_wtime() - start_time;
+printf("Tiempo Total para %d hilos (en seg):%.2f\n", nthreads, time);
+}
+system("pause");
+return 0;
 }
