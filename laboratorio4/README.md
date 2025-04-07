@@ -39,43 +39,20 @@ E = S<sub>p</sub> / p
 #### 3.1. MULTIPLICACION DE MATRICES.
 Paralelismo de datos donde cada hilo trabaja con datos distintos, pero con el mismo algoritmo.
 
-## Result Matrix C:
-54 55 54 55 61 58 42 50 52 48 
-40 58 40 56 47 51 45 42 50 42 
-51 64 58 56 56 65 43 60 63 55 
-60 66 60 61 56 77 45 65 69 60 
-68 73 67 70 68 75 47 64 73 65 
-68 77 70 71 72 76 49 69 75 65 
-70 76 60 68 53 70 53 69 71 60 
-73 77 66 79 66 82 60 71 75 66 
-60 71 64 72 67 81 59 70 71 63 
-66 68 61 59 52 70 49 70 64 59 
 
-## Ejercicio 1 - Multiplicación de Matrices
+## Evaluacion del desempeno del algoritmo paralelo para multiplicar dos matrices
+### Tabla 1. Parametros iniciales
+Arquitectura del equipo: Intel Xeon
+Nro. de procesadores: 12
+Tamano del problema: N = 500
 [Enlace al código fuente](ejersicio1.cpp)
-Valor de n: 12
-
-## Result Matrix C:
-72 71 82 79 82 86 81 76 77 82 66 69 
-76 83 89 80 93 95 74 84 77 94 75 77 
-65 69 81 79 77 89 87 75 72 82 77 73 
-67 68 79 70 85 87 70 73 68 85 66 65 
-70 77 81 79 83 92 77 81 80 79 74 82 
-99 107 122 113 122 136 122 115 110 121 110 111 
-79 85 88 89 94 98 95 84 87 91 87 87 
-58 63 67 71 70 80 81 61 64 71 65 70 
-64 72 70 75 81 83 82 70 77 72 63 77 
-58 78 83 77 90 95 84 79 73 84 78 78 
-64 64 76 73 76 91 73 77 72 74 68 73 
-70 70 86 82 77 90 89 76 74 84 81 73 
-
-## Ejercicio 1 - Multiplicación de Matrices
-[Enlace al código fuente](ejersicio1.cpp)
-Valor de n: 5
-
-## Result Matrix C:
-27 27 41 32 36 
-30 27 44 34 35 
-29 41 51 30 32 
-19 17 29 20 22 
-32 36 48 32 36 
+### Tabla 2. Resultados experimentales
+| Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp) | Eficiencia (E) |
+|------------|-----------------------|--------------|----------------|
+|          1 |                 0.457 |        0.954 |          0.954 |
+|          2 |                 0.263 |        1.658 |          0.829 |
+|          4 |                 0.132 |        3.303 |          0.826 |
+|          6 |                 0.130 |        3.354 |          0.559 |
+|          8 |                 0.133 |        3.278 |          0.410 |
+|         10 |                 0.142 |        3.070 |          0.307 |
+|         12 |                 0.140 |        3.114 |          0.260 |

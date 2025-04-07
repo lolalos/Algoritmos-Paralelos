@@ -44,9 +44,18 @@ int main() {
         }
     }
     double seq_time = omp_get_wtime() - seq_start_time;
-    printf("Tiempo Total secuencial (en seg): %.2f\n", seq_time);
+    printf("Tiempo Secuencial (seg): %.3f\n", seq_time);
 
     //========= ALGORITMO PARALELO ==============
+    printf("\nTabla 2. Resultados experimentales\n");
+    printf("Nro. Hilos\t");
+    for (nthreads = 1; nthreads <= 10; nthreads++) {
+        printf("%d\t", nthreads);
+    }
+    printf("\n");
+
+    printf("Tiempo Paralelo (seg)\t");
+    double par_times[10];
     for (nthreads = 1; nthreads <= 10; nthreads++) {
         omp_set_num_threads(nthreads);
 
@@ -63,10 +72,9 @@ int main() {
 
         double par_start_time = omp_get_wtime();
 
+        #pragma omp parallel for private(src, dst)
         for (middle = 0; middle < N; middle++) {
             int* dm = distance_matrix[middle];
-
-            #pragma omp parallel for private(dst) schedule(dynamic)
             for (src = 0; src < N; src++) {
                 int* ds = distance_matrix[src];
                 for (dst = 0; dst < N; dst++) {
@@ -76,8 +84,26 @@ int main() {
         }
 
         double par_time = omp_get_wtime() - par_start_time;
-        printf("Tiempo Total para %d hilos (en seg): %.2f\n", nthreads, par_time);
+        par_times[nthreads - 1] = par_time;
+        printf("%.3f\t", par_time);
     }
+    printf("\n");
+
+    // Calcular Speedup y Eficiencia
+    printf("Speedup (Sp)\t\t");
+    for (nthreads = 1; nthreads <= 10; nthreads++) {
+        double speedup = seq_time / par_times[nthreads - 1];
+        printf("%.3f\t", speedup);
+    }
+    printf("\n");
+
+    printf("Eficiencia (E)\t\t");
+    for (nthreads = 1; nthreads <= 10; nthreads++) {
+        double speedup = seq_time / par_times[nthreads - 1];
+        double efficiency = speedup / nthreads;
+        printf("%.3f\t", efficiency);
+    }
+    printf("\n");
 
     return 0;
 }
