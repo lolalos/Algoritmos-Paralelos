@@ -80,6 +80,9 @@ int main(int argc, char const *argv[])
     //-- muestra la matriz_c de resultados
     ofstream file_md;
     file_md.open("README.md", ios::app);
+    file_md << "\n## Ejercicio 1 - Multiplicación de Matrices\n";
+    file_md << "[Enlace al código fuente](D:/Algoritmos-Paralelos/laboratorio4/ejersicio1.cpp)\n";
+    file_md << "Valor de n: " << n << "\n";
     file_md << "\n## Result Matrix C:\n";
     for (i = 0; i < n; i++)
     {

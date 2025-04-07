@@ -50,3 +50,21 @@ Paralelismo de datos donde cada hilo trabaja con datos distintos, pero con el mi
 73 77 66 79 66 82 60 71 75 66 
 60 71 64 72 67 81 59 70 71 63 
 66 68 61 59 52 70 49 70 64 59 
+
+## Ejercicio 1 - Multiplicación de Matrices
+[Enlace al código fuente](D:/Algoritmos-Paralelos/laboratorio4/ejersicio1.cpp)
+Valor de n: 12
+
+## Result Matrix C:
+72 71 82 79 82 86 81 76 77 82 66 69 
+76 83 89 80 93 95 74 84 77 94 75 77 
+65 69 81 79 77 89 87 75 72 82 77 73 
+67 68 79 70 85 87 70 73 68 85 66 65 
+70 77 81 79 83 92 77 81 80 79 74 82 
+99 107 122 113 122 136 122 115 110 121 110 111 
+79 85 88 89 94 98 95 84 87 91 87 87 
+58 63 67 71 70 80 81 61 64 71 65 70 
+64 72 70 75 81 83 82 70 77 72 63 77 
+58 78 83 77 90 95 84 79 73 84 78 78 
+64 64 76 73 76 91 73 77 72 74 68 73 
+70 70 86 82 77 90 89 76 74 84 81 73 
