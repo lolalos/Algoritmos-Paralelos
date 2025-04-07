@@ -52,7 +52,7 @@ Paralelismo de datos donde cada hilo trabaja con datos distintos, pero con el mi
 66 68 61 59 52 70 49 70 64 59 
 
 ## Ejercicio 1 - Multiplicación de Matrices
-[Enlace al código fuente](/ejersicio1.cpp)
+[Enlace al código fuente](https://github.com/EfrainVitorino/Algoritmos-Paralelos/blob/main/laboratorio4/ejercicio1.cpp)
 Valor de n: 12
 
 ## Result Matrix C:
