@@ -2,14 +2,94 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "(gdb) Bash en Windows: iniciar",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "Escriba el nombre del programa; por ejemplo, ${workspaceFolder}/a.exe.",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "pipeTransport": {
+        "debuggerPath": "/usr/bin/gdb",
+        "pipeProgram": "${env:windir}\\system32\\bash.exe",
+        "pipeArgs": ["-c"],
+        "pipeCwd": ""
+      },
+      "setupCommands": [
+          {
+              "description": "Habilitar la impresión con sangría para gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          },
+          {
+              "description": "Establecer tipo de desensamblado en Intel",
+              "text": "-gdb-set disassembly-flavor intel",
+              "ignoreFailures": true
+          }
+      ]
+    },
+    {
+      "name": "(gdb) Bash en Windows: asociar",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "Escriba el nombre del programa; por ejemplo, ${workspaceFolder}/a.exe.",
+      "processId": "${command:pickRemoteProcess}",
+      "pipeTransport": {
+        "debuggerPath": "/usr/bin/gdb",
+        "pipeProgram": "${env:windir}\\system32\\bash.exe",
+        "pipeArgs": ["-c"],
+        "pipeCwd": ""
+      },
+      "setupCommands": [
+          {
+              "description": "Habilitar la impresión con sangría para gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          },
+          {
+              "description": "Establecer tipo de desensamblado en Intel",
+              "text": "-gdb-set disassembly-flavor intel",
+              "ignoreFailures": true
+          }
+      ]
+    },
+    {
+      "name": "(gdb) Asociación de canalización",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "Escriba el nombre del programa; por ejemplo, ${workspaceFolder}/a.exe.",
+      "processId": "${command:pickRemoteProcess}",
+      "pipeTransport": {
+        "debuggerPath": "/usr/bin/gdb",
+        "pipeProgram": "<Ruta de acceso completa al programa de canalización, como plink.exe.>",
+        "pipeArgs": [],
+        "pipeCwd": ""
+      },
+      "MIMode": "gdb",
+      "setupCommands": [
+          {
+              "description": "Habilitar la impresión con sangría para gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          },
+          {
+              "description": "Establecer tipo de desensamblado en Intel",
+              "text": "-gdb-set disassembly-flavor intel",
+              "ignoreFailures": true
+          }
+      ]
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Algoritmos-Paralelos/laboratorio1",
-      "program": "d:/Algoritmos-Paralelos/laboratorio1/build/Debug/outDebug",
+      "cwd": "d:/Algoritmos-Paralelos/laboratorio4",
+      "program": "d:/Algoritmos-Paralelos/laboratorio4/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
