@@ -61,7 +61,7 @@ Tamano del problema: N = 500
 Este programa implementa el algoritmo de Floyd-Warshall para calcular las distancias más cortas entre todos los pares de nodos en un grafo.
 
 ### Enlace al código fuente
-[Código fuente](D:/Algoritmos-Paralelos/laboratorio4/ejercicio2.cpp)
+[Código fuente](ejercicio2.cpp)
 
 ### Tabla 2. Resultados experimentales
 | Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp) | Eficiencia (E) |
