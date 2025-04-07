@@ -56,3 +56,23 @@ Tamano del problema: N = 500
 |          8 |                 0.133 |        3.278 |          0.410 |
 |         10 |                 0.142 |        3.070 |          0.307 |
 |         12 |                 0.140 |        3.114 |          0.260 |
+# Resultados del Algoritmo de Floyd-Warshall Paralelo
+
+Este programa implementa el algoritmo de Floyd-Warshall para calcular las distancias más cortas entre todos los pares de nodos en un grafo.
+
+### Enlace al código fuente
+[Código fuente](D:/Algoritmos-Paralelos/laboratorio4/ejercicio2.cpp)
+
+### Tabla 2. Resultados experimentales
+| Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp) | Eficiencia (E) |
+|------------|-----------------------|--------------|----------------|
+| 1 | 81.181 | 1.04653 | 1.04653 |
+| 2 | 43.3 | 1.96208 | 0.981039 |
+| 3 | 30.077 | 2.82468 | 0.941561 |
+| 4 | 22.986 | 3.69608 | 0.924019 |
+| 5 | 22.635 | 3.75339 | 0.750678 |
+| 6 | 23.556 | 3.60664 | 0.601107 |
+| 7 | 23.024 | 3.68998 | 0.527139 |
+| 8 | 22.741 | 3.7359 | 0.466987 |
+| 9 | 22.823 | 3.72247 | 0.413608 |
+| 10 | 22.807 | 3.72508 | 0.372508 |

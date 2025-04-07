@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <omp.h>
+#include <fstream>
 
 // Define el número de nodos en el grafo
 #define N 3000
@@ -44,18 +45,12 @@ int main() {
         }
     }
     double seq_time = omp_get_wtime() - seq_start_time;
-    printf("Tiempo Secuencial (seg): %.3f\n", seq_time);
 
     //========= ALGORITMO PARALELO ==============
-    printf("\nTabla 2. Resultados experimentales\n");
-    printf("Nro. Hilos\t");
-    for (nthreads = 1; nthreads <= 10; nthreads++) {
-        printf("%d\t", nthreads);
-    }
-    printf("\n");
-
-    printf("Tiempo Paralelo (seg)\t");
     double par_times[10];
+    double speedups[10];
+    double efficiencies[10];
+
     for (nthreads = 1; nthreads <= 10; nthreads++) {
         omp_set_num_threads(nthreads);
 
@@ -85,25 +80,24 @@ int main() {
 
         double par_time = omp_get_wtime() - par_start_time;
         par_times[nthreads - 1] = par_time;
-        printf("%.3f\t", par_time);
+        speedups[nthreads - 1] = seq_time / par_time;
+        efficiencies[nthreads - 1] = speedups[nthreads - 1] / nthreads;
     }
-    printf("\n");
 
-    // Calcular Speedup y Eficiencia
-    printf("Speedup (Sp)\t\t");
+    // Crear el archivo README.md
+    std::ofstream readme("README.md");
+    readme << "# Resultados del Algoritmo de Floyd-Warshall Paralelo\n\n";
+    readme << "Este programa implementa el algoritmo de Floyd-Warshall para calcular las distancias más cortas entre todos los pares de nodos en un grafo.\n\n";
+    readme << "### Enlace al código fuente\n";
+    readme << "[Código fuente](D:/Algoritmos-Paralelos/laboratorio4/ejercicio2.cpp)\n\n";
+    readme << "### Tabla 2. Resultados experimentales\n";
+    readme << "| Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp) | Eficiencia (E) |\n";
+    readme << "|------------|-----------------------|--------------|----------------|\n";
     for (nthreads = 1; nthreads <= 10; nthreads++) {
-        double speedup = seq_time / par_times[nthreads - 1];
-        printf("%.3f\t", speedup);
+        readme << "| " << nthreads << " | " << par_times[nthreads - 1] << " | " 
+               << speedups[nthreads - 1] << " | " << efficiencies[nthreads - 1] << " |\n";
     }
-    printf("\n");
-
-    printf("Eficiencia (E)\t\t");
-    for (nthreads = 1; nthreads <= 10; nthreads++) {
-        double speedup = seq_time / par_times[nthreads - 1];
-        double efficiency = speedup / nthreads;
-        printf("%.3f\t", efficiency);
-    }
-    printf("\n");
+    readme.close();
 
     return 0;
 }
