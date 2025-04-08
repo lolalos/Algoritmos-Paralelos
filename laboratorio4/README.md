@@ -88,9 +88,9 @@ Este programa implementa el algoritmo de Floyd-Warshall para calcular las distan
 ### Tabla 2. Resultados experimentales
 PS D:\Algoritmos-Paralelos\laboratorio4> .\ejersicio3
 Ingrese el valor de n: 500
-+------------+-----------------------+----------------+----------------+
+
 | Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp)   | Eficiencia (E) |
-+------------+-----------------------+----------------+----------------+
+|------------|-----------------------|----------------|----------------|
 |          1 |               0.46900 |        0.85714 |        0.85714 |
 |          2 |               0.25400 |        1.58268 |        0.79134 |
 |          3 |               0.17100 |        2.35088 |        0.78363 |
@@ -101,8 +101,7 @@ Ingrese el valor de n: 500
 |          8 |               0.15700 |        2.56051 |        0.32006 |
 |          9 |               0.14400 |        2.79167 |        0.31019 |
 |         10 |               0.14700 |        2.73470 |        0.27347 |
-+------------+-----------------------+----------------+----------------+
-PS D:\Algoritmos-Paralelos\laboratorio4>
+
 ![Imagen ilustrativa](Screenshot_6.png "")
 
 # Tarea
