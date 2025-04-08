@@ -76,3 +76,53 @@ Este programa implementa el algoritmo de Floyd-Warshall para calcular las distan
 | 8 | 22.741 | 3.7359 | 0.466987 |
 | 9 | 22.823 | 3.72247 | 0.413608 |
 | 10 | 22.807 | 3.72508 | 0.372508 |
+
+
+# ALGORITMO DE FLOY - WARSHAL
+
+Este programa implementa el algoritmo de Floyd-Warshall para calcular las distancias más cortas entre todos los pares de nodos en un grafo.
+
+### Enlace al código fuente
+[Código fuente](ejercicio3.cpp)
+
+### Tabla 2. Resultados experimentales
+PS D:\Algoritmos-Paralelos\laboratorio4> .\ejersicio3
+Ingrese el valor de n: 500
++------------+-----------------------+----------------+----------------+
+| Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp)   | Eficiencia (E) |
++------------+-----------------------+----------------+----------------+
+|          1 |               0.46900 |        0.85714 |        0.85714 |
+|          2 |               0.25400 |        1.58268 |        0.79134 |
+|          3 |               0.17100 |        2.35088 |        0.78363 |
+|          4 |               0.14200 |        2.83099 |        0.70775 |
+|          5 |               0.13800 |        2.91304 |        0.58261 |
+|          6 |               0.13900 |        2.89208 |        0.48201 |
+|          7 |               0.13200 |        3.04545 |        0.43506 |
+|          8 |               0.15700 |        2.56051 |        0.32006 |
+|          9 |               0.14400 |        2.79167 |        0.31019 |
+|         10 |               0.14700 |        2.73470 |        0.27347 |
++------------+-----------------------+----------------+----------------+
+PS D:\Algoritmos-Paralelos\laboratorio4>
+![Imagen ilustrativa](Screenshot_6.png "")
+
+# Tarea
+![Imagen ilustrativa](Screenshot_4.png "")
+## resultado 
+Resultado de la integral (secuencial): 1033.33
+Tiempo secuencial: 34.129 segundos
+
+| Nro. Hilos | Tiempo Paralelo (seg) | Speedup (Sp) | Eficiencia (E) |
+|------------|-----------------------|--------------|----------------|
+|          1 |               34.185 |      0.99836 |        0.99836 |
+|          2 |               17.589 |       1.9404 |        0.97018 |
+|          3 |               11.934 |       2.8598 |        0.95327 |
+|          4 |                9.086 |       3.7562 |        0.93906 |
+|          5 |                9.046 |       3.7728 |        0.75457 |
+|          6 |                9.148 |       3.7308 |        0.62179 |
+|          7 |                9.112 |       3.7455 |        0.53507 |
+|          8 |                9.077 |       3.7599 |        0.46999 |
+
+PS D:\Algoritmos-Paralelos\laboratorio4>
+
+# grafico 
+![Imagen ilustrativa](Screenshot_5.png "")
