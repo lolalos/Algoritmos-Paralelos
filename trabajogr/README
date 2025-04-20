@@ -1,0 +1,24 @@
+Implementación del algoritmo de segmentación descrito en:
+
+Segmentación Eficiente de Imágenes Basada en Grafos
+Pedro F. Felzenszwalb y Daniel P. Huttenlocher
+International Journal of Computer Vision, 59(2) Septiembre 2004.
+
+El programa toma una imagen a color (formato PPM) y produce una segmentación
+con un color aleatorio asignado a cada región.
+
+1) Escribe "make" para compilar "segment".
+
+2) Ejecuta "segment sigma k min input output".
+./segment 0.5 500 20 image_data/ct_scan.pnm output2.ppm
+
+Los parámetros son: (ver el artículo para más detalles)
+
+sigma: Usado para suavizar la imagen de entrada antes de segmentarla.
+k: Valor para la función de umbral.
+min: Tamaño mínimo de componente aplicado mediante post-procesamiento.
+input: Imagen de entrada.
+output: Imagen de salida.
+
+Los parámetros típicos son sigma = 0.5, k = 500, min = 20.
+Valores mayores para k resultan en componentes más grandes en el resultado.

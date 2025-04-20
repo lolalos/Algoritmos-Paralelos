@@ -1,0 +1,9 @@
+Imagen cargada: 89x87 píxeles
+Parámetros: sigma=0.5, k=500, min_size=20
+
+1. Conversión a escala de grises completada
+2. Filtro Gaussiano aplicado con sigma=0.5
+3. Convolución con Sobel para calcular gradientes completada
+4. Segmentación completada usando disjoint-set
+   - Componentes conectados: 24
+   - Tiempo de segmentación: 11.4403 ms
