@@ -2,11 +2,11 @@
 
 Implementación del algoritmo de segmentación descrito en:
 
-- **Segmentación Eficiente de Imágenes Basada en Grafos**  
-    Pedro F. Felzenszwalb y Daniel P. Huttenlocher  
-    _International Journal of Computer Vision, 59(2), Septiembre 2004._  
-    [Enlace al artículo original (Springer)](https://link.springer.com/article/10.1023/B:VISI.0000022288.19776.77)  
-    [Versión PDF gratuita (autor)](https://cs.brown.edu/~pff/papers/seg-ijcv.pdf)
+**Segmentación Eficiente de Imágenes Basada en Grafos**  
+Pedro F. Felzenszwalb y Daniel P. Huttenlocher  
+_International Journal of Computer Vision, 59(2), Septiembre 2004._  
+[Enlace al artículo original (Springer)](https://link.springer.com/article/10.1023/B:VISI.0000022288.19776.77)  
+[Versión PDF gratuita (autor)](https://cs.brown.edu/~pff/papers/seg-ijcv.pdf)
 
 Esta implementación utiliza CUDA para acelerar el procesamiento en GPU.
 
@@ -53,22 +53,22 @@ Valores mayores para `k` resultan en componentes más grandes en el resultado.
 
 La aceleración con CUDA se realiza en los siguientes pasos:
 
-1. **Carga y transferencia de la imagen a la GPU**:  
-     Se utiliza memoria unificada o buffers CUDA para transferir la imagen desde la CPU a la GPU.
+1. **Carga y transferencia de la imagen a la GPU**  
+    Se utiliza memoria unificada o buffers CUDA para transferir la imagen desde la CPU a la GPU.
 
-2. **Suavizado (Gaussian Blur) en GPU**:  
-     El suavizado inicial de la imagen se implementa como un kernel CUDA, aprovechando la paralelización de píxeles.
+2. **Suavizado (Gaussian Blur) en GPU**  
+    El suavizado inicial de la imagen se implementa como un kernel CUDA, aprovechando la paralelización de píxeles.
 
-3. **Construcción del grafo**:  
-     Se generan los bordes entre píxeles vecinos en paralelo, calculando las diferencias de color.
+3. **Construcción del grafo**  
+    Se generan los bordes entre píxeles vecinos en paralelo, calculando las diferencias de color.
 
-4. **Segmentación (Union-Find en GPU)**:  
-     Se utiliza una versión paralela del algoritmo Union-Find para agrupar regiones similares.
+4. **Segmentación (Union-Find en GPU)**  
+    Se utiliza una versión paralela del algoritmo Union-Find para agrupar regiones similares.
 
-5. **Post-procesamiento**:  
-     Se eliminan regiones menores al tamaño mínimo especificado, también en GPU.
+5. **Post-procesamiento**  
+    Se eliminan regiones menores al tamaño mínimo especificado, también en GPU.
 
-6. **Transferencia de resultados a la CPU y guardado de la imagen segmentada**.
+6. **Transferencia de resultados a la CPU y guardado de la imagen segmentada**
 
 Para más detalles sobre la implementación CUDA, consulta la [documentación oficial de CUDA](https://docs.nvidia.com/cuda/) y el [repositorio de referencia de Felzenszwalb](https://github.com/sergioparriego/graph-based-image-segmentation) (implementación original en C++).
 
@@ -76,41 +76,41 @@ Para más detalles sobre la implementación CUDA, consulta la [documentación of
 
 ## Requisitos para la Implementación en Visual Studio Code
 
-Se utiliza **Visual Studio Code** (VS Code) por su facilidad de manejo, ligereza y amplia compatibilidad con extensiones, en lugar de Visual Studio tradicional. VS Code permite una configuración flexible y multiplataforma, ideal para proyectos con CUDA y C++.
+Se utiliza Visual Studio Code (VS Code) por su facilidad de manejo, ligereza y amplia compatibilidad con extensiones, en lugar de Visual Studio tradicional. VS Code permite una configuración flexible y multiplataforma, ideal para proyectos con CUDA y C++.
 
 ### 1. Herramientas y dependencias
 
-- **CUDA Toolkit**  
-    Descarga la versión adecuada para tu GPU desde [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit).
-- **Compilador compatible con CUDA**  
-    - En Windows: Se recomienda instalar [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (solo los componentes de C++).
-    - En Linux: Instala `build-essential` y asegúrate de tener `nvcc` disponible.
-- **Make**  
-    - Windows: [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
-    - Linux: Instala con el gestor de paquetes (`sudo apt install make`).
+- CUDA Toolkit  
+  Descarga la versión adecuada para tu GPU desde [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit).
+- Compilador compatible con CUDA  
+  - En Windows: Se recomienda instalar [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (solo los componentes de C++).
+  - En Linux: Instala `build-essential` y asegúrate de tener `nvcc` disponible.
+- Make  
+  - Windows: [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
+  - Linux: Instala con el gestor de paquetes (`sudo apt install make`).
 
 ### 2. Visual Studio Code
 
-- **Descarga VS Code**: [https://code.visualstudio.com/](https://code.visualstudio.com/)
-- **Extensiones recomendadas**:
-        - [C/C++ (Microsoft)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
-        - [CUDA C++](https://marketplace.visualstudio.com/items?itemName=kriegalex.vscode-cudacpp)
-        - [Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools)
-        - [Code Runner (opcional)](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
-        - [GitHub Pull Requests and Issues (opcional)](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+- Descarga VS Code: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+- Extensiones recomendadas:
+  - [C/C++ (Microsoft)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+  - [CUDA C++](https://marketplace.visualstudio.com/items?itemName=kriegalex.vscode-cudacpp)
+  - [Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools)
+  - [Code Runner (opcional)](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+  - [GitHub Pull Requests and Issues (opcional)](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
 
 ### 3. Configuración adicional
 
-- **Variables de entorno**  
-    Añade las rutas de `nvcc` y del CUDA Toolkit a la variable de entorno `PATH`.
-- **Automatización de tareas**  
-    Puedes crear un archivo `.vscode/tasks.json` para compilar automáticamente con `make`.
-- **Terminal integrada**  
-    Utiliza la terminal de VS Code para compilar y ejecutar el proyecto.
+- Variables de entorno  
+  Añade las rutas de `nvcc` y del CUDA Toolkit a la variable de entorno `PATH`.
+- Automatización de tareas  
+  Puedes crear un archivo `.vscode/tasks.json` para compilar automáticamente con `make`.
+- Terminal integrada  
+  Utiliza la terminal de VS Code para compilar y ejecutar el proyecto.
 
 ---
 
-**Referencias adicionales:**
+## Referencias adicionales
 
 - [Guía de programación CUDA](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
 - [Código original de Felzenszwalb (C++)](http://cs.brown.edu/~pff/segment/)
