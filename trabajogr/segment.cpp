@@ -38,7 +38,7 @@ void convolve(image<float>* in, image<float>* out, float* kernel, int kernel_siz
   }
 }
 
-// Function to convert input image to grayscale with parallelization
+// Función para convertir una imagen de entrada a escala de grises con paralelización
 template <typename T>
 image<float>* rgb2gray(image<T>* input) {
   int width = input->width();
@@ -105,7 +105,8 @@ void saveFloatImageAsPPM(image<float>* img, const char* filename) {
 
 // Save detailed information to a report file
 void saveReport(const std::string& filename, const std::string& details) {
-  FILE* fp = fopen(filename.c_str(), "w");
+  FILE* fp = nullptr;
+  fopen_s(&fp, filename.c_str(), "w");
   if (fp) {
     fprintf(fp, "%s", details.c_str());
     fclose(fp);
