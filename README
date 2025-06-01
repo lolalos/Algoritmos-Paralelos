@@ -1,118 +1,71 @@
-# Entregable Grupo 5: Segmentación Eficiente de Imágenes Basada en Grafos con CUDA
 
-Implementación del algoritmo de segmentación descrito en:
+## Implementación detallada del algoritmo de segmentación
 
-**Segmentación Eficiente de Imágenes Basada en Grafos**  
+Este proyecto implementa el algoritmo de segmentación eficiente basado en grafos descrito en el artículo:
+
+**Efficient Graph-Based Image Segmentation**  
 Pedro F. Felzenszwalb y Daniel P. Huttenlocher  
-_International Journal of Computer Vision, 59(2), Septiembre 2004._  
-[Enlace al artículo original (Springer)](https://link.springer.com/article/10.1023/B:VISI.0000022288.19776.77)  
-[Versión PDF gratuita (autor)](https://cs.brown.edu/~pff/papers/seg-ijcv.pdf)
+*International Journal of Computer Vision*, 59(2), septiembre de 2004.  
+[Enlace al artículo original (PDF)](https://cs.brown.edu/~pff/papers/seg-ijcv.pdf)
 
-Esta implementación utiliza CUDA para acelerar el procesamiento en GPU.
+### Descripción
 
-## Instrucciones de uso
+El programa procesa una imagen a color en formato PPM y genera una segmentación, asignando un color aleatorio a cada región detectada.
 
-El programa toma una imagen a color (formato PPM) y produce una segmentación con un color aleatorio asignado a cada región.
+### Fórmulas utilizadas
 
-### 1. Compilación
+El algoritmo se basa en la construcción de un grafo donde cada píxel es un nodo y las aristas conectan píxeles vecinos. El peso de cada arista representa la diferencia de color entre los píxeles conectados, calculada como:
 
-Ejecuta el siguiente comando para compilar el programa con soporte CUDA:
+\[
+w((i, j), (k, l)) = \sqrt{(R_{i,j} - R_{k,l})^2 + (G_{i,j} - G_{k,l})^2 + (B_{i,j} - B_{k,l})^2}
+\]
 
-```bash
-make
-```
+donde \( (i, j) \) y \( (k, l) \) son las coordenadas de los píxeles, y \( R, G, B \) son los valores de color.
 
-Asegúrate de tener instalado [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) y un compilador compatible.
+Para decidir si se deben unir dos componentes \( C_1 \) y \( C_2 \), se utiliza la siguiente condición de umbral:
 
-### 2. Ejecución
+\[
+w \leq \min(\text{Int}(C_1) + \tau(C_1),\ \text{Int}(C_2) + \tau(C_2))
+\]
 
-Ejecuta el programa con la siguiente sintaxis:
+donde:
+- \( \text{Int}(C) \) es la mayor diferencia interna de los pesos dentro del componente \( C \).
+- \( \tau(C) = \frac{k}{|C|} \), siendo \( k \) el parámetro de sensibilidad y \( |C| \) el tamaño del componente.
 
-```bash
-./segment sigma k min input output
-```
+Estas fórmulas permiten controlar la sensibilidad de la segmentación y el tamaño mínimo de las regiones.
 
-Ejemplo:
+### Instrucciones de uso
 
-```bash
-./segment 0.5 500 20 image_data/ct_scan.pnm output2.ppm
-```
+1. Compile el programa ejecutando:
+    ```
+    make
+    ```
+    Esto generará el ejecutable `segment`.
 
-#### Parámetros
+2. Ejecute el programa con la siguiente sintaxis:
+    ```
+    segment sigma k min input output
+    ```
 
-- **sigma**: Usado para suavizar la imagen de entrada antes de segmentarla.
-- **k**: Valor para la función de umbral.
-- **min**: Tamaño mínimo de componente aplicado mediante post-procesamiento.
-- **input**: Imagen de entrada (formato PPM/PNM).
-- **output**: Imagen de salida.
+    Donde los parámetros son:
 
-Parámetros típicos: `sigma = 0.5`, `k = 500`, `min = 20`.  
-Valores mayores para `k` resultan en componentes más grandes en el resultado.
+    - **sigma**: Parámetro de suavizado aplicado a la imagen de entrada antes de segmentar.
+    - **k**: Valor utilizado en la función de umbral para controlar la sensibilidad de la segmentación.
+    - **min**: Tamaño mínimo permitido para cada componente (región) tras el post-procesamiento.
+    - **input**: Ruta de la imagen de entrada (formato PPM).
+    - **output**: Ruta donde se guardará la imagen segmentada.
 
-## Implementación CUDA
+### Parámetros recomendados
 
-La aceleración con CUDA se realiza en los siguientes pasos:
+- `sigma = 0.5`
+- `k = 500`
+- `min = 20`
 
-1. **Carga y transferencia de la imagen a la GPU**  
-    Se utiliza memoria unificada o buffers CUDA para transferir la imagen desde la CPU a la GPU.
+Valores mayores de **k** producirán regiones más grandes en el resultado final.
 
-2. **Suavizado (Gaussian Blur) en GPU**  
-    El suavizado inicial de la imagen se implementa como un kernel CUDA, aprovechando la paralelización de píxeles.
+### Referencias
 
-3. **Construcción del grafo**  
-    Se generan los bordes entre píxeles vecinos en paralelo, calculando las diferencias de color.
-
-4. **Segmentación (Union-Find en GPU)**  
-    Se utiliza una versión paralela del algoritmo Union-Find para agrupar regiones similares.
-
-5. **Post-procesamiento**  
-    Se eliminan regiones menores al tamaño mínimo especificado, también en GPU.
-
-6. **Transferencia de resultados a la CPU y guardado de la imagen segmentada**
-
-Para más detalles sobre la implementación CUDA, consulta la [documentación oficial de CUDA](https://docs.nvidia.com/cuda/) y el [repositorio de referencia de Felzenszwalb](https://github.com/sergioparriego/graph-based-image-segmentation) (implementación original en C++).
-
----
-
-## Requisitos para la Implementación en Visual Studio Code
-
-Se utiliza Visual Studio Code (VS Code) por su facilidad de manejo, ligereza y amplia compatibilidad con extensiones, en lugar de Visual Studio tradicional. VS Code permite una configuración flexible y multiplataforma, ideal para proyectos con CUDA y C++.
-
-### 1. Herramientas y dependencias
-
-- CUDA Toolkit  
-  Descarga la versión adecuada para tu GPU desde [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit).
-- Compilador compatible con CUDA  
-  - En Windows: Se recomienda instalar [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (solo los componentes de C++).
-  - En Linux: Instala `build-essential` y asegúrate de tener `nvcc` disponible.
-- Make  
-  - Windows: [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
-  - Linux: Instala con el gestor de paquetes (`sudo apt install make`).
-
-### 2. Visual Studio Code
-
-- Descarga VS Code: [https://code.visualstudio.com/](https://code.visualstudio.com/)
-- Extensiones recomendadas:
-  - [C/C++ (Microsoft)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
-  - [CUDA C++](https://marketplace.visualstudio.com/items?itemName=kriegalex.vscode-cudacpp)
-  - [Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools)
-  - [Code Runner (opcional)](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
-  - [GitHub Pull Requests and Issues (opcional)](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
-
-### 3. Configuración adicional
-
-- Variables de entorno  
-  Añade las rutas de `nvcc` y del CUDA Toolkit a la variable de entorno `PATH`.
-- Automatización de tareas  
-  Puedes crear un archivo `.vscode/tasks.json` para compilar automáticamente con `make`.
-- Terminal integrada  
-  Utiliza la terminal de VS Code para compilar y ejecutar el proyecto.
-
----
-
-## Referencias adicionales
-
-- [Guía de programación CUDA](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
-- [Código original de Felzenszwalb (C++)](http://cs.brown.edu/~pff/segment/)
-- [Ejemplo de implementación en CUDA](https://github.com/joelgrus/graph-segmentation-cuda)
+- Felzenszwalb, P. F., & Huttenlocher, D. P. (2004). Efficient Graph-Based Image Segmentation. *International Journal of Computer Vision*, 59(2), 167–181.  
+  [https://cs.brown.edu/~pff/papers/seg-ijcv.pdf](https://cs.brown.edu/~pff/papers/seg-ijcv.pdf)
+- Código fuente original: [https://cs.brown.edu/~pff/segment/](https://cs.brown.edu/~pff/segment/)
 
