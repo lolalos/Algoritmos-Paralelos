@@ -2,29 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "CUDA Launch (cuda-gdb)",
-            "type": "cppdbg",
+            "name": "CUDA Launch (Windows)",
+            "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.exe", // Cambia esto por el ejecutable CUDA
-            "args": [],
+            "program": "${workspaceFolder}/segment.exe", // Ejecutable CUDA correcto
+            "args": ["0.5", "500", "50", "logo_segmentado.ppm", "logo_segmentado.ppm_segmented.ppm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "MIMode": "gdb",
-            "miDebuggerPath": "/usr/local/cuda/bin/cuda-gdb", // Cambia la ruta si es necesario
-            "setupCommands": [
-                {
-                    "description": "Habilitar la impresión con sangría para gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "description": "Establecer tipo de desensamblado en Intel",
-                    "text": "-gdb-set disassembly-flavor intel",
-                    "ignoreFailures": true
-                }
-            ]
+            "console": "externalTerminal" // Para ver la salida en una ventana
         }
-
     ]
 }

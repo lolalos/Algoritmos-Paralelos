@@ -6,7 +6,6 @@
 #include "pnmfile.h"
 #include "segment-image.cuh"
 #include <cuda_runtime.h>
-#include <opencv2/opencv.hpp> // Agregado para mostrar la imagen
 
 int main(int argc, char **argv) {
     // Verifica que se pasen los argumentos necesarios
@@ -43,25 +42,6 @@ int main(int argc, char **argv) {
     printf("Imagen segmentada guardada en: %s\n", argv[5]);
     printf("Número de componentes segmentados: %d\n", num_ccs);
 
-    // Convierte la imagen segmentada a formato OpenCV para mostrarla en una ventana
-    int width = seg->width();
-    int height = seg->height();
-    cv::Mat img(height, width, CV_8UC3);
-
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            rgb val = seg->data[y * width + x];
-            img.at<cv::Vec3b>(y, x)[0] = val.b; // Canal azul
-            img.at<cv::Vec3b>(y, x)[1] = val.g; // Canal verde
-            img.at<cv::Vec3b>(y, x)[2] = val.r; // Canal rojo
-        }
-    }
-
-    // Muestra la imagen segmentada en una ventana
-    cv::imshow("Imagen Segmentada", img);
-    printf("Presiona cualquier tecla para cerrar la ventana...\n");
-    cv::waitKey(0);
-
     // Libera la memoria utilizada por las imágenes
     delete input;
     delete seg;
@@ -72,7 +52,7 @@ int main(int argc, char **argv) {
     printf("  Sigma: %.2f\n", sigma);
     printf("  K: %.2f\n", k);
     printf("  Min Size: %d\n", min_size);
-    printf("Dimensiones de la imagen: %d x %d\n", width, height);
+    printf("Dimensiones de la imagen: %d x %d\n", input->width(), input->height());
     printf("Número de componentes segmentados: %d\n", num_ccs);
     printf("Tiempo total de procesamiento: %.6f segundos\n", elapsed.count());
     printf("-----------------------------\n");

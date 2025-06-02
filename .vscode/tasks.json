@@ -1,42 +1,21 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "CUDA Compile",
-            "type": "shell",
-            "command": "\"C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin/nvcc.exe\"",
-            "args": [
-                "${workspaceFolder}/segment.cu",
-                "-o",
-                "${workspaceFolder}/segment.exe",
-                "-I\"C:/opencv/build/include\"",
-                "-L\"C:/opencv/build/x64/vc16/lib\"",
-                "-lopencv_world460"
-            ],
-            "group": "build"
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: nvcc.exe compilar archivo activo",
-            "command": "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin/nvcc.exe",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Tarea generada por el depurador."
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compilar CUDA",
+      "type": "shell",
+      "command": "cmd.exe",
+      "args": [
+        "/c",
+        "call \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Auxiliary\\Build\\vcvars64.bat\" && nvcc cuda_test.cu -o cuda_test.exe"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
 }
