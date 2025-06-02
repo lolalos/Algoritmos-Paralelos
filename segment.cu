@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            rgb val = seg->access(x, y);
+            rgb val = seg->data[y * width + x];
             img.at<cv::Vec3b>(y, x)[0] = val.b; // Canal azul
             img.at<cv::Vec3b>(y, x)[1] = val.g; // Canal verde
             img.at<cv::Vec3b>(y, x)[2] = val.r; // Canal rojo

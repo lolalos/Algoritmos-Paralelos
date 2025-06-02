@@ -1,9 +1,24 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
+            "label": "CUDA Compile",
+            "type": "shell",
+            "command": "\"C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin/nvcc.exe\"",
+            "args": [
+                "${workspaceFolder}/segment.cu",
+                "-o",
+                "${workspaceFolder}/segment.exe",
+                "-I\"C:/opencv/build/include\"",
+                "-L\"C:/opencv/build/x64/vc16/lib\"",
+                "-lopencv_world460"
+            ],
+            "group": "build"
+        },
+        {
             "type": "cppbuild",
-            "label": "C/C++: g++.exe compilar archivo activo",
-            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "label": "C/C++: nvcc.exe compilar archivo activo",
+            "command": "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin/nvcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -12,7 +27,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.9/bin"
             },
             "problemMatcher": [
                 "$gcc"
@@ -23,6 +38,5 @@
             },
             "detail": "Tarea generada por el depurador."
         }
-    ],
-    "version": "2.0.0"
+    ]
 }
